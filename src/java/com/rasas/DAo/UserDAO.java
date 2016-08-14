@@ -38,7 +38,7 @@ public class UserDAO implements Serializable{
         ResultSet rs = sql.executeQuery();
         
         
-        
+        ////////    http://www.journaldev.com/7068/jsf-and-jdbc-integration-example-tutorial
         
         return null;
     }
