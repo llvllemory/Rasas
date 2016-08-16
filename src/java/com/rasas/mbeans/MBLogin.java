@@ -1,6 +1,5 @@
 package com.rasas.mbeans;
 
-import com.rasas.DAO.UserDAO;
 import com.rasas.entities.Users;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
