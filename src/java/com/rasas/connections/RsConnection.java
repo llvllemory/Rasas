@@ -10,33 +10,29 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class RsConnection{
     
-    private final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-    private final String USER = "rasas";
-    private final String PASS = "123";
+    private static final String DB_DRIVER = "oracle.jdbc.driver.OracleDriver";
+    private static final String DB_CONNECTION = "jdbc:oracle:thin:@localhost:1521:XE";
+    private static final String DB_USER = "rasas";
+    private static final String DB_PASSWORD = "123";
+    private static Connection rsConnection = null;
     
-    private Connection rsConnection;
-    
-    public RsConnection() throws Exception{
-       
+    public RsConnection(){
+        
         try {
-            rsConnection = DriverManager.getConnection(URL, USER, PASS);
-            System.out.println("com.rasas.connections.RsConnection.<init>() ---------------------- > connection established" );
-        } catch (Exception e) {
-            System.out.println("com.rasas.connections.RsConnection.<init> ----------------> " + e.getMessage());
-        }
+            
+            Class.forName(DB_DRIVER);
+            rsConnection = DriverManager.getConnection(DB_CONNECTION, DB_USER,DB_PASSWORD);
         
-        
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
+        }       
     }
 
-    public Connection getRsConnection() {
+    public static Connection getRsConnection() {
         return rsConnection;
     }
-
-    public void setRsConnection(Connection rsConnection) {
-        this.rsConnection = rsConnection;
-    }
     
-    public void rsConnectionClose() throws SQLException{
+    public static void rsConnectionClose() throws SQLException{
         rsConnection.close();
     }
     
