@@ -1,5 +1,7 @@
 package com.rasas.mbeans;
 
+import com.rasas.dao.UsersDAO;
+import com.rasas.connections.RsConnection;
 import com.rasas.entities.Users;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -22,6 +24,12 @@ public class MBLogin {
     }
    
     public String checkCredentials() throws Exception{
+        
+        UsersDAO userDAO = new UsersDAO();
+        Users u = userDAO.getUserById("33476");
+        
+        System.out.println("----------------------------------------------------->" + u);
+       
         
         userManager = new MBUser();
         

@@ -58,7 +58,7 @@ public class Users implements Serializable {
     @Column(name = "PASSWORD")
     private String password;
     @Column(name = "PRIVILEGE")
-    private BigInteger privilege;
+    private int privilege;
     @Column(name = "ENTRY_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date entryDate;
@@ -66,7 +66,7 @@ public class Users implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
     @Column(name = "USER_CENTER")
-    private BigInteger userCenter;
+    private int userCenter;
 
     public Users() {
     }
@@ -107,11 +107,11 @@ public class Users implements Serializable {
         this.password = password;
     }
 
-    public BigInteger getPrivilege() {
+    public int getPrivilege() {
         return privilege;
     }
 
-    public void setPrivilege(BigInteger privilege) {
+    public void setPrivilege(int privilege) {
         this.privilege = privilege;
     }
 
@@ -131,11 +131,11 @@ public class Users implements Serializable {
         this.lastLogin = lastLogin;
     }
 
-    public BigInteger getUserCenter() {
+    public int getUserCenter() {
         return userCenter;
     }
 
-    public void setUserCenter(BigInteger userCenter) {
+    public void setUserCenter(int userCenter) {
         this.userCenter = userCenter;
     }
 
