@@ -1,6 +1,7 @@
 package com.rasas.mbeans;
 
-
+import com.rasas.entities.Users;
+import java.sql.SQLException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -11,27 +12,27 @@ public class MBLogin {
 
     private String userId;
     private String password;
-    private MBUser userManager;
+    private MBUser userManager;    
+    private Users user;
     
     public MBLogin(){
         
     }
-   
-    public String checkCredentials() throws Exception{
 
-
-       
-        
+    public String checkLoginCredentials() throws SQLException{
+     
         userManager = new MBUser();
+        user = new Users();
         
-        if(userManager.checkUsernameAndPassword(userId, password)){
+        user = userManager.getUserByIdAndPassword(userId, password);
+        if(user != null){
             return "main_page";
         }
-        
         MBCommonMethods.getErrorMessage("خظأ", "خطأ في اسم المستخدم او كلمة السر!");
         return "";
     }
     
+    ////////////////////////////////////////////////////////////////////////////
     public String getUserId() {
         return userId;
     }

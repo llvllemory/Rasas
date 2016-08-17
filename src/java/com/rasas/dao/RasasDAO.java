@@ -1,21 +1,21 @@
-package com.rasas.connections;
+package com.rasas.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 
 @ManagedBean
-public class RsConnection{
+
+public class RasasDAO {
     
-    private final String DB_DRIVER = "oracle.jdbc.driver.OracleDriver";
-    private final String DB_CONNECTION = "jdbc:oracle:thin:@localhost:1521:XE";
-    private final String DB_USER = "rasas";
-    private final String DB_PASSWORD = "123";
-    private Connection rsConnection = null;
+    private static final String DB_DRIVER = "oracle.jdbc.driver.OracleDriver";
+    private static final String DB_CONNECTION = "jdbc:oracle:thin:@localhost:1521:XE";
+    private static final String DB_USER = "rasas";
+    private static final String DB_PASSWORD = "123";
+    private static Connection rsConnection = null;
     
-    public RsConnection(){
+    public RasasDAO(){
         
         try {
             Class.forName(DB_DRIVER);
@@ -33,13 +33,12 @@ public class RsConnection{
             System.out.println(e.getMessage());
         }
     }
-
-    public Connection getRsConnection() {
+    
+    public static Connection getRsConnection() {
         return rsConnection;
     }
     
-    public void rsConnectionClose() throws SQLException{
+    public static void rsConnectionClose() throws SQLException{
         rsConnection.close();
     }
-    
 }
