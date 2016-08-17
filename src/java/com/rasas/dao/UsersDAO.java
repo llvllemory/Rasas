@@ -3,33 +3,32 @@ package com.rasas.dao;
 import com.rasas.connections.RsConnection;
 import com.rasas.entities.Users;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 
 @ManagedBean
-@RequestScoped
 public class UsersDAO {
     
     private Users user = new Users();
-    
-    private Connection rsCon = RsConnection.getRsConnection();
-    private PreparedStatement preparedStatement;
-    private ResultSet result;
+    private RsConnection rsCon = new RsConnection();
+    private Connection con;
   
     public Users getUserById(String userId) throws SQLException{
         
-        //String selectSQL = "SELECT * FROM USERS WHERE USER_ID = ?";
-        user = null;
+        PreparedStatement statement = null;
+        ResultSet result = null;
         
         try {
-            preparedStatement = rsCon.prepareStatement("SELECT * FROM USERS WHERE USER_ID = ?");
-            preparedStatement.setString(1, userId);
-            result = preparedStatement.executeQuery();
+            
+            con = rsCon.getRsConnection();
+            statement = con.prepareStatement("select * from users where user_id = ?");
+            statement.setString(1, userId);
+            result = statement.executeQuery();
             
             while(result.next()){
+        
                 user.setUserId(result.getString("USER_ID"));
                 user.setPassword(result.getString("USER_NAME"));
                 user.setUserName(result.getString("USER_TYPE"));
@@ -43,12 +42,12 @@ public class UsersDAO {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
 	} finally {
-            if (preparedStatement != null) {
-		preparedStatement.close();
+            if (statement != null) {
+		statement.close();
 		}
             
-            if (rsCon != null) {
-		rsCon.close();
+            if (con != null) {
+		con.close();
 		}
 	}
         return user;
