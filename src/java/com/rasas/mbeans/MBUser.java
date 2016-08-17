@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.persistence.*;
 
 @ManagedBean
 @RequestScoped
@@ -37,6 +36,7 @@ public class MBUser implements Serializable{
             preparedStatement = con.prepareStatement("select * from users where user_id = ? and password = ?");
             preparedStatement.setString(1, userId);
             preparedStatement.setString(2, password);
+           
             result = preparedStatement.executeQuery();
             
             while(result.next()){

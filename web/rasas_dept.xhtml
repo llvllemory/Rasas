@@ -28,7 +28,7 @@
                     </f:facet>
                     
                     <p:outputLabel id="lblCenterNo" value="المركز : " />
-                    <h:selectOneMenu style="width: 170px; height: 25px;">
+                    <h:selectOneMenu value="#{mBRsMain.centerNo}" style="width: 170px; height: 25px;">
                         <f:selectItem itemLabel="جمرك العقبة" itemValue="220"/>
                     </h:selectOneMenu>
                     
@@ -44,7 +44,7 @@
                     <br/>
                     <f:facet name="footer">
                         <center>
-                            <p:commandButton id="btnRasasReg" value="صرف الرصاص" action="#{mBRsMain.regRasas()}"/>
+                            <p:commandButton id="btnRasasReg" value="صرف الرصاص" action="#{mBRsMain.checkRasasIfFound()}"/>
                         </center>
                     </f:facet>
                     

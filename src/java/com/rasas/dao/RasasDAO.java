@@ -1,5 +1,6 @@
 package com.rasas.dao;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,13 +8,13 @@ import javax.faces.bean.ManagedBean;
 
 @ManagedBean
 
-public class RasasDAO {
+public class RasasDAO implements Serializable{
     
-    private static final String DB_DRIVER = "oracle.jdbc.driver.OracleDriver";
-    private static final String DB_CONNECTION = "jdbc:oracle:thin:@localhost:1521:XE";
-    private static final String DB_USER = "rasas";
-    private static final String DB_PASSWORD = "123";
-    private static Connection rsConnection = null;
+    private final String DB_DRIVER = "oracle.jdbc.driver.OracleDriver";
+    private final String DB_CONNECTION = "jdbc:oracle:thin:@localhost:1521:XE";
+    private final String DB_USER = "rasas";
+    private final String DB_PASSWORD = "123";
+    private Connection rsConnection = null;
     
     public RasasDAO(){
         
@@ -34,11 +35,11 @@ public class RasasDAO {
         }
     }
     
-    public static Connection getRsConnection() {
+    public Connection getRsConnection() {
         return rsConnection;
     }
     
-    public static void rsConnectionClose() throws SQLException{
+    public void rsConnectionClose() throws SQLException{
         rsConnection.close();
     }
 }
