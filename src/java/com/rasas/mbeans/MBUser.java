@@ -42,8 +42,8 @@ public class MBUser implements Serializable{
             while(result.next()){
         
                 user.setUserId(result.getString("USER_ID"));
-                user.setPassword(result.getString("USER_NAME"));
-                user.setUserName(result.getString("USER_TYPE"));
+                user.setUserName(result.getString("USER_NAME"));
+                user.setUserType(result.getString("USER_TYPE"));
                 user.setPassword(result.getString("PASSWORD"));
                 user.setPrivilege(result.getInt("PRIVILEGE"));
                 user.setEntryDate(result.getDate("ENTRY_DATE"));
@@ -62,6 +62,7 @@ public class MBUser implements Serializable{
 		con.close();
 		}
 	}
-        return user;
+        
+       return user; 
     }  
 }

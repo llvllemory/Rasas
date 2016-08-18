@@ -8,11 +8,11 @@ import javax.faces.bean.RequestScoped;
 
 @ManagedBean
 @RequestScoped
-
 public class MBLogin implements Serializable{
 
     private String userId;
     private String password;
+    
     private MBUser userManager;    
     private Users user;
     
@@ -22,28 +22,29 @@ public class MBLogin implements Serializable{
 
     public String checkLoginCredentials() throws SQLException{
         
-        if(userId.equals(null)){
+        if(userId.equals("")){
             MBCommonMethods.getWarnMessage("تنبيه!", "يجب ادخال اسم المستخدم");
+            return "";
         }
         
-        if(password.equals(null)){
+        if(password.equals("")){
             MBCommonMethods.getWarnMessage("تنبيه!", "يجب ادخال كلمة السر");
+            return "";
         }
-        
-        
-        
+          
         userManager = new MBUser();
         user = new Users();
         
-        System.out.println("username, password" + userId + ", " + password);
         user = userManager.getUserByIdAndPassword(userId, password);
 
-        if(user != null){
-            System.out.println("zzzzzzzzzwwwwwwwwwwzz" + user.getUserId());
+        if(user.getUserId() != null){
+            MBCommonMethods.getInfoMessage("", "أهلا بك " + user.getUserName());
             return "main_page";
+            
+        }else{
+            MBCommonMethods.getErrorMessage("خظأ", "خطأ في اسم المستخدم او كلمة السر!");
+            return "";    
         }
-        MBCommonMethods.getErrorMessage("خظأ", "خطأ في اسم المستخدم او كلمة السر!");
-        return "";
     }
     
     ////////////////////////////////////////////////////////////////////////////
