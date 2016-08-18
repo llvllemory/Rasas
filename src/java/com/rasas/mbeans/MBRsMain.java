@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -30,19 +31,16 @@ public class MBRsMain implements Serializable{
  
     }
 
-    
     public String checkRasasIfFound(){
         
         if(rsFrom == 0){
             MBCommonMethods.getWarnMessage("إنتبه", "بداية الرصاص يجب ان يكون اكبر من صفر!");
             return "";
         }
-        
         if(rsTo == 0){
             MBCommonMethods.getWarnMessage("إنتبه", "نهاية الرصاص يجب ان يكون اكبر من صفر!");
             return "";
         }
-        
         if(rsTo < rsFrom){
             MBCommonMethods.getWarnMessage("إنتبه", "يجب ان يكون بداية الرصاص اقل او يساوي نهايته!");
             return "";
@@ -115,7 +113,46 @@ public class MBRsMain implements Serializable{
         
         return rasasList;
     }
+    
+
+    
+    
+    public int saveRasas(String rsFrom, String rsTo, String rsCenter, String rsSubCenter, Date entryDate, String userId){
+        int rowInserted = 0;
+        
+        preparedStatement = null;
+        result            = null;
+        
+        try {
+            
+            String sql = "insert into rs_main ";
+
+            con = rsCon.getRsConnection();
+            
+           
+            result = preparedStatement.executeQuery();
+            
+            while(result.next()){
+                rasas.setRsNo(result.getString("RS_NO"));
+                rasas.setRsYear(result.getString("RS_YEAR"));
+                rasas.setRsCenter(result.getString("RS_CENTER"));
+                rasas.setRsSubCenter(result.getString("RS_SUB_CENTER"));
+                rasas.setEntryDate(result.getDate("ENTRY_DATE"));
+                rasas.setUserId(result.getString("USER_ID"));
+            }
+            
+        } catch (Exception e) {
+            System.out.println("com.rasas.mbeans.MBRsMain.getRasasList()" + e.getMessage());
+        }
+        
+        
+        
+        return rowInserted;
+    }
+
     ////////////////////////////////////////////////////////////////////////////
+    
+    
     
     public String getCenterNo() {
         return centerNo;

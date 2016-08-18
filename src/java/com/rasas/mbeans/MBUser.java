@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -64,5 +66,48 @@ public class MBUser implements Serializable{
 	}
         
        return user; 
-    }  
+    }
+    
+    public List<Users> getAllUsers() throws SQLException{
+        
+        preparedStatement = null;
+        result = null;
+        List<Users> usersList = new ArrayList<>(); 
+        
+        try {
+            
+            con = rsCon.getRsConnection();
+            preparedStatement = con.prepareStatement("select * from users");
+            result = preparedStatement.executeQuery();
+            
+            while(result.next()){
+        
+                user.setUserId(result.getString("USER_ID"));
+                user.setUserName(result.getString("USER_NAME"));
+                user.setUserType(result.getString("USER_TYPE"));
+                user.setPassword(result.getString("PASSWORD"));
+                user.setPrivilege(result.getInt("PRIVILEGE"));
+                user.setEntryDate(result.getDate("ENTRY_DATE"));
+                user.setLastLogin(result.getDate("LAST_LOGIN"));
+                user.setUserCenter(result.getInt("USER_CENTER"));
+                
+                usersList.add(user);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (preparedStatement != null) {
+		preparedStatement.close();
+		}
+            
+            if (con != null) {
+		con.close();
+		}
+	}
+        
+       return usersList; 
+    }
+    
+    
 }

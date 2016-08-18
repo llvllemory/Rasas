@@ -19,8 +19,8 @@ public class MBLogin implements Serializable{
     public MBLogin(){
 
     }
-
-    public String checkLoginCredentials() throws SQLException{
+    
+    public String logIn() throws SQLException{
         
         if(userId.equals("")){
             MBCommonMethods.getWarnMessage("تنبيه!", "يجب ادخال اسم المستخدم");
@@ -45,6 +45,10 @@ public class MBLogin implements Serializable{
             MBCommonMethods.getErrorMessage("خظأ", "خطأ في اسم المستخدم او كلمة السر!");
             return "";    
         }
+    }
+    
+    public void logOut(){
+        
     }
     
     ////////////////////////////////////////////////////////////////////////////
