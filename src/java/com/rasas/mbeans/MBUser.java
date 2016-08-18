@@ -26,7 +26,7 @@ public class MBUser implements Serializable{
     public MBUser(){
 
     }
-
+    
     public Users getUserByIdAndPassword(String userId, String password) throws SQLException{
         
         preparedStatement = null;

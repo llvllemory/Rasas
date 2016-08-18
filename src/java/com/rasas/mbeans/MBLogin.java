@@ -3,6 +3,8 @@ package com.rasas.mbeans;
 import com.rasas.entities.Users;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -13,14 +15,16 @@ public class MBLogin implements Serializable{
     private String userId;
     private String password;
     
-    private MBUser userManager;    
+    private MBUser userManager; 
     private Users user;
+    private List<Users> usersList = new ArrayList<>();
     
     public MBLogin(){
 
     }
     
     public String logIn() throws SQLException{
+             
         
         if(userId.equals("")){
             MBCommonMethods.getWarnMessage("تنبيه!", "يجب ادخال اسم المستخدم");
@@ -50,6 +54,12 @@ public class MBLogin implements Serializable{
     public void logOut(){
         
     }
+    
+    
+    
+    ///////////////
+   
+   
     
     ////////////////////////////////////////////////////////////////////////////
     public String getUserId() {
