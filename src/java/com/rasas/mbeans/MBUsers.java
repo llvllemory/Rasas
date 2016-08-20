@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.persistence.*;
 
 @ManagedBean
 @RequestScoped
@@ -24,9 +25,19 @@ public class MBUsers implements Serializable{
     private PreparedStatement preparedStatement;
     private ResultSet result;
     
+    
+    EntityManagerFactory emf;
+    EntityManager em;
+    
     public MBUsers(){
-
+        emf = Persistence.createEntityManagerFactory("RasasPU");
+        em  = emf.createEntityManager();
+        
     }
+    
+    
+    ///////////////////Query methods ///////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
     
     public List<Users> getUserByIdAndPassword(String userId, String password) throws SQLException{
         
@@ -76,6 +87,7 @@ public class MBUsers implements Serializable{
        return usersList; 
     }
     
+    ///////////////////////////////////////////////////////////////////////////
     public List<Users> getAllUsers() throws SQLException{
         
         rsCon = new RasasDAO();
@@ -120,4 +132,17 @@ public class MBUsers implements Serializable{
 	}
        return usersList; 
     }  
+    
+    
+    ////////////////////////////////////////////////////////////////////////////////
+
+    public void updateUserLastLogin(String userId) {
+        System.out.println("com.rasas.mbeans.MBUsers.updateUserLastLogin()---------->");
+        
+        em.getTransaction().begin();
+        user = new Users();
+        user = em.find(Users.class, userId);
+        user.setLastLogin(new java.util.Date());
+        em.getTransaction().commit();
+    }
 }

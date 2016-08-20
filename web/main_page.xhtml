@@ -9,19 +9,25 @@
     <h:head>
         <title>الصفحة الرئيسية</title>
     
+        <style>
+            .ui-growl {
+                top: 2% !important;
+                left: 1%;
+                width: 450px;
+                
+            }
+        </style>
+        
      </h:head>
     
     <h:body>
         
+        <p:growl id="growl" showDetail="true" life="5000"/>
+        
         <ui:insert name="header">
 		<ui:include src="header.xhtml" />
 	</ui:insert>
-        
-        <h:form>
-            <p:growl id="growl" showDetail="true"/>
-            
-            
-        </h:form> 
+       
     </h:body>
 </html>
 

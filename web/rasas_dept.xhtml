@@ -8,15 +8,26 @@
     
     <h:head>
         <title>إستلام رصاص اللوازم</title>
+        
+        <style>
+            .ui-growl {
+                top: 2% !important;
+                left: 1%;
+                width: 450px;
+                
+            }
+        </style>
+        
     </h:head>
     
     <h:body>
+        
+        <p:growl id="growl" showDetail="true" life="5000"/>
+        
         <ui:insert name="header">
 		<ui:include src="header.xhtml" />
 	</ui:insert>
-        
-        <p:growl id="growl" showDetail="true"/>
-        
+                
         <h:form>
             <center>
                 <h:panelGrid columns="4" cellpadding="10" style="direction: rtl;margin-top: 10%;">

@@ -10,11 +10,20 @@
     <h:head>
         <title>شاشة الدخول لنظام الرصاص</title>
    
+        <style>
+            .ui-growl {
+                top: 2% !important;
+                left: 1%;
+                width: 400px;
+                z-index:9999;
+            }
+        </style>
         
+            
     </h:head>
     <h:body dir="RTL">
         
-        <p:growl id="growl" showDetail="true" />
+        <p:growl id="growl" showDetail="true" life="5000"/>
         
         <h:form>
             <center>

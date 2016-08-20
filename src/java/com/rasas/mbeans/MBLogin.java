@@ -39,6 +39,11 @@ public class MBLogin implements Serializable{
         usersList = mBUsers.getUserByIdAndPassword(userId, password);
 
         if(usersList.size() > 0){
+            
+            
+            mBUsers = new MBUsers();
+            mBUsers.updateUserLastLogin(userId);
+                    
             MBCommonMethods.getInfoMessage("", "أهلا بك " + usersList.get(0).getUserName());
             return "main_page";
             
