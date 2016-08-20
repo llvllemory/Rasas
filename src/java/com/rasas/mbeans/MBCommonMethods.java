@@ -56,7 +56,5 @@ public class MBCommonMethods {
         DateFormat dateFormat = new SimpleDateFormat("yyyy");
         Calendar cal = Calendar.getInstance();
         return dateFormat.format(cal.getTime());
-   }
-   
-   
+   }   
 }

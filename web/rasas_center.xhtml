@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
     
     <h:head>
-        <title>إستلام رصاص اللوازم</title>
+        <title>صرف رصاص لمركز</title>
     </h:head>
     
     <h:body>
@@ -23,13 +23,22 @@
                     
                     <f:facet name="header">
                         <center>
-                            <p:outputLabel value="صرف رصاص من اللوازم لمركز"/>
+                            <p:outputLabel value="صرف رصاص لمركز"/>
                         </center>
                     </f:facet>
                     
-                    <p:outputLabel id="lblCenterNo" value="المركز : " />
-                    <h:selectOneMenu value="#{mBRsMain.centerNo}" style="width: 170px; height: 25px;">
-                        <f:selectItem itemLabel="جمرك العقبة" itemValue="220"/>
+                    <p:outputLabel id="lblSubCenterNo" value="المركز : " />
+                    <h:selectOneMenu value="#{mBRsMain.subCenterNo}" style="width: 170px; height: 25px;">
+                        <f:selectItem itemLabel="الرقابة الجمركية" itemValue="901"/>
+                        <f:selectItem itemLabel="باب 4" itemValue="902"/>
+                        <f:selectItem itemLabel="ساحة 4" itemValue="903"/>
+                        <f:selectItem itemLabel="ميناء الحاويات" itemValue="904"/>
+                        <f:selectItem itemLabel="محطة الركاب" itemValue="905"/>
+                        <f:selectItem itemLabel="الدرة" itemValue="906"/>
+                        <f:selectItem itemLabel="جنوب وادي عربة" itemValue="907"/>
+                        <f:selectItem itemLabel="وادي عربة" itemValue="908"/>
+                        <f:selectItem itemLabel="وادي اليتم" itemValue="909"/>
+                        <f:selectItem itemLabel="الرابية" itemValue="900"/>
                     </h:selectOneMenu>
                     
                     <p:outputLabel id="lblCurrentDate" value="التاريخ : "/>
@@ -44,7 +53,7 @@
                     <br/>
                     <f:facet name="footer">
                         <center>
-                            <p:commandButton id="btnRasasReg" value="صرف الرصاص" action="#{mBRsMain.checkCenterRasas()}"/>
+                            <p:commandButton id="btnRasasReg" value="صرف الرصاص" action="#{mBRsMain.checkSubCenterRasas()}"/>
                         </center>
                     </f:facet>
                     

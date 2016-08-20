@@ -15,20 +15,23 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 
-public class MBUser implements Serializable{
+public class MBUsers implements Serializable{
     
-    private Users user = new Users();
-    private RasasDAO rsCon = new RasasDAO();
+    private List<Users> usersList;
+    private Users user;
+    private RasasDAO rsCon;
     private Connection con;
     private PreparedStatement preparedStatement;
     private ResultSet result;
     
-    public MBUser(){
+    public MBUsers(){
 
     }
     
-    public Users getUserByIdAndPassword(String userId, String password) throws SQLException{
+    public List<Users> getUserByIdAndPassword(String userId, String password) throws SQLException{
         
+        usersList = new ArrayList<>();
+        rsCon = new RasasDAO();
         preparedStatement = null;
         result = null;
         
@@ -42,46 +45,9 @@ public class MBUser implements Serializable{
             result = preparedStatement.executeQuery();
             
             while(result.next()){
-        
-                user.setUserId(result.getString("USER_ID"));
-                user.setUserName(result.getString("USER_NAME"));
-                user.setUserType(result.getString("USER_TYPE"));
-                user.setPassword(result.getString("PASSWORD"));
-                user.setPrivilege(result.getInt("PRIVILEGE"));
-                user.setEntryDate(result.getDate("ENTRY_DATE"));
-                user.setLastLogin(result.getDate("LAST_LOGIN"));
-                user.setUserCenter(result.getInt("USER_CENTER"));
-            }
-            
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-	} finally {
-            if (preparedStatement != null) {
-		preparedStatement.close();
-		}
-            
-            if (con != null) {
-		con.close();
-		}
-	}
-        
-       return user; 
-    }
-    
-    public List<Users> getAllUsers() throws SQLException{
-        
-        preparedStatement = null;
-        result = null;
-        List<Users> usersList = new ArrayList<>(); 
-        
-        try {
-            
-            con = rsCon.getRsConnection();
-            preparedStatement = con.prepareStatement("select * from users");
-            result = preparedStatement.executeQuery();
-            
-            while(result.next()){
-        
+
+                user = new Users();
+                
                 user.setUserId(result.getString("USER_ID"));
                 user.setUserName(result.getString("USER_NAME"));
                 user.setUserType(result.getString("USER_TYPE"));
@@ -93,6 +59,7 @@ public class MBUser implements Serializable{
                 
                 usersList.add(user);
             }
+            
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -109,5 +76,48 @@ public class MBUser implements Serializable{
        return usersList; 
     }
     
-    
+    public List<Users> getAllUsers() throws SQLException{
+        
+        rsCon = new RasasDAO();
+        usersList = new ArrayList<>();
+        preparedStatement = null;
+        result = null;
+         
+        
+        try {
+            
+            con = rsCon.getRsConnection();
+            preparedStatement = con.prepareStatement("select * from users");
+            result = preparedStatement.executeQuery();
+            
+            while(result.next()){
+                
+                user = new Users();
+                
+                user.setUserId(result.getString("USER_ID"));
+                user.setUserName(result.getString("USER_NAME"));
+                user.setUserType(result.getString("USER_TYPE"));
+                user.setPassword(result.getString("PASSWORD"));
+                user.setPrivilege(result.getInt("PRIVILEGE"));
+                user.setEntryDate(result.getDate("ENTRY_DATE"));
+                user.setLastLogin(result.getDate("LAST_LOGIN"));
+                user.setUserCenter(result.getInt("USER_CENTER"));
+                
+                usersList.add(user);
+                
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (preparedStatement != null) {
+		preparedStatement.close();
+		}
+            
+            if (con != null) {
+		con.close();
+		}
+	}
+       return usersList; 
+    }  
 }

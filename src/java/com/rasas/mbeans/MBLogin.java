@@ -15,9 +15,8 @@ public class MBLogin implements Serializable{
     private String userId;
     private String password;
     
-    private MBUser userManager; 
-    private Users user;
-    private List<Users> usersList = new ArrayList<>();
+    private MBUsers mBUsers; 
+    private List<Users> usersList;
     
     public MBLogin(){
 
@@ -36,13 +35,11 @@ public class MBLogin implements Serializable{
             return "";
         }
           
-        userManager = new MBUser();
-        user = new Users();
-        
-        user = userManager.getUserByIdAndPassword(userId, password);
+        mBUsers = new MBUsers();
+        usersList = mBUsers.getUserByIdAndPassword(userId, password);
 
-        if(user.getUserId() != null){
-            MBCommonMethods.getInfoMessage("", "أهلا بك " + user.getUserName());
+        if(usersList.size() > 0){
+            MBCommonMethods.getInfoMessage("", "أهلا بك " + usersList.get(0).getUserName());
             return "main_page";
             
         }else{
@@ -50,6 +47,7 @@ public class MBLogin implements Serializable{
             return "";    
         }
     }
+    
     
     public void logOut(){
         

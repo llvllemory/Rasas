@@ -32,9 +32,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "RsMain.findByRsNo", query = "SELECT r FROM RsMain r WHERE r.rsNo = :rsNo"),
     @NamedQuery(name = "RsMain.findByRsYear", query = "SELECT r FROM RsMain r WHERE r.rsYear = :rsYear"),
     @NamedQuery(name = "RsMain.findByRsCenter", query = "SELECT r FROM RsMain r WHERE r.rsCenter = :rsCenter"),
+    @NamedQuery(name = "RsMain.findByRsCenterDate", query = "SELECT r FROM RsMain r WHERE r.rsCenterDate = :rsCenterDate"),
+    @NamedQuery(name = "RsMain.findByRsCenterUserId", query = "SELECT r FROM RsMain r WHERE r.rsCenterUserId = :rsCenterUserId"),
     @NamedQuery(name = "RsMain.findByRsSubCenter", query = "SELECT r FROM RsMain r WHERE r.rsSubCenter = :rsSubCenter"),
-    @NamedQuery(name = "RsMain.findByEntryDate", query = "SELECT r FROM RsMain r WHERE r.entryDate = :entryDate"),
-    @NamedQuery(name = "RsMain.findByUserId", query = "SELECT r FROM RsMain r WHERE r.userId = :userId")})
+    @NamedQuery(name = "RsMain.findByRsSubCenterDate", query = "SELECT r FROM RsMain r WHERE r.rsSubCenterDate = :rsSubCenterDate"),
+    @NamedQuery(name = "RsMain.findByRsSubCenterUserId", query = "SELECT r FROM RsMain r WHERE r.rsSubCenterUserId = :rsSubCenterUserId")})
 public class RsMain implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,15 +52,21 @@ public class RsMain implements Serializable {
     @Size(max = 3)
     @Column(name = "RS_CENTER")
     private String rsCenter;
+    @Column(name = "RS_CENTER_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date rsCenterDate;
+    @Size(max = 10)
+    @Column(name = "RS_CENTER_USER_ID")
+    private String rsCenterUserId;
     @Size(max = 3)
     @Column(name = "RS_SUB_CENTER")
     private String rsSubCenter;
-    @Column(name = "ENTRY_DATE")
+    @Column(name = "RS_SUB_CENTER_DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date entryDate;
+    private Date rsSubCenterDate;
     @Size(max = 10)
-    @Column(name = "USER_ID")
-    private String userId;
+    @Column(name = "RS_SUB_CENTER_USER_ID")
+    private String rsSubCenterUserId;
 
     public RsMain() {
     }
@@ -91,6 +99,22 @@ public class RsMain implements Serializable {
         this.rsCenter = rsCenter;
     }
 
+    public Date getRsCenterDate() {
+        return rsCenterDate;
+    }
+
+    public void setRsCenterDate(Date rsCenterDate) {
+        this.rsCenterDate = rsCenterDate;
+    }
+
+    public String getRsCenterUserId() {
+        return rsCenterUserId;
+    }
+
+    public void setRsCenterUserId(String rsCenterUserId) {
+        this.rsCenterUserId = rsCenterUserId;
+    }
+
     public String getRsSubCenter() {
         return rsSubCenter;
     }
@@ -99,20 +123,20 @@ public class RsMain implements Serializable {
         this.rsSubCenter = rsSubCenter;
     }
 
-    public Date getEntryDate() {
-        return entryDate;
+    public Date getRsSubCenterDate() {
+        return rsSubCenterDate;
     }
 
-    public void setEntryDate(Date entryDate) {
-        this.entryDate = entryDate;
+    public void setRsSubCenterDate(Date rsSubCenterDate) {
+        this.rsSubCenterDate = rsSubCenterDate;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getRsSubCenterUserId() {
+        return rsSubCenterUserId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setRsSubCenterUserId(String rsSubCenterUserId) {
+        this.rsSubCenterUserId = rsSubCenterUserId;
     }
 
     @Override
