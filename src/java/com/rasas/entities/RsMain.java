@@ -43,19 +43,22 @@ public class RsMain implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
     @Column(name = "RS_NO")
-    private String rsNo;
-    @Size(max = 4)
+    private Long rsNo;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 4)
     @Column(name = "RS_YEAR")
     private String rsYear;
-    @Size(max = 3)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 3)
     @Column(name = "RS_CENTER")
     private String rsCenter;
     @Column(name = "RS_CENTER_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date rsCenterDate;
-    @Size(max = 10)
+    @Size(max = 20)
     @Column(name = "RS_CENTER_USER_ID")
     private String rsCenterUserId;
     @Size(max = 3)
@@ -64,22 +67,28 @@ public class RsMain implements Serializable {
     @Column(name = "RS_SUB_CENTER_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date rsSubCenterDate;
-    @Size(max = 10)
+    @Size(max = 20)
     @Column(name = "RS_SUB_CENTER_USER_ID")
     private String rsSubCenterUserId;
 
     public RsMain() {
     }
 
-    public RsMain(String rsNo) {
+    public RsMain(Long rsNo) {
         this.rsNo = rsNo;
     }
 
-    public String getRsNo() {
+    public RsMain(Long rsNo, String rsYear, String rsCenter) {
+        this.rsNo = rsNo;
+        this.rsYear = rsYear;
+        this.rsCenter = rsCenter;
+    }
+
+    public Long getRsNo() {
         return rsNo;
     }
 
-    public void setRsNo(String rsNo) {
+    public void setRsNo(Long rsNo) {
         this.rsNo = rsNo;
     }
 

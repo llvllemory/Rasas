@@ -37,7 +37,7 @@ public class MBRsMain implements Serializable{
 
     public String checkCenterRasas() throws SQLException{
         System.out.println("com.rasas.mbeans.MBRsMain.checkCenterRasas()---------->");
-        
+                
         if(rsFrom == 0){
             MBCommonMethods.getWarnMessage("إنتبه", "بداية الرصاص يجب ان يكون اكبر من صفر!");
             return "";
@@ -59,7 +59,7 @@ public class MBRsMain implements Serializable{
             rsFound = 0;
             for(RsMain rs : rsList){
               for(int i = rsFrom; i <= rsTo; i++){
-                  if(Integer.valueOf(rs.getRsNo()).equals(i)){
+                  if(rs.getRsNo() == i){
                       rsFound++;
                   }
               }  
@@ -67,38 +67,31 @@ public class MBRsMain implements Serializable{
             
             if (rsFound == ((rsTo - rsFrom) + 1)) {
                 MBCommonMethods.getErrorMessage("عملية خاطئة", "هذا الرصاص مصروف مسبقا للمركز, الرجاء التأكد أولا!");
-            
             }else if(rsFound > 0 && rsFound < ((rsTo - rsFrom) + 1)){
                 MBCommonMethods.getErrorMessage("عملية خاطئة", "هنالك رصاص مصروف مسبقا من هذا الرصاص للمركز, الرجاء التأكد أولا!");
-                
             }else if(rsFound == 0){
-                //int x = saveCenterRasas();
-                saveCenterRasas();
-                MBCommonMethods.getInfoMessage("عملية ناحجة", "تم صرف الرصاص للمركز ينجاح.");
-                return "";
-//                if(x == 0){
-//                    MBCommonMethods.getErrorMessage("عملية خاطئة", "فشل في عملية تخزين الرصاص, الرجاء المحاولة مرة اخرى او التأكد من أرقام الرصاص!");
-//                    return "";
-//                    
-//                }else{
-//                    MBCommonMethods.getInfoMessage("عملية ناحجة", "تم صرف الرصاص للمركز ينجاح."); 
-//                    return "";
-//                }    
+                
+                int x = saveCenterRasas();
+
+                if (x == 0) {
+                    MBCommonMethods.getErrorMessage("عملية خاطئة", "فشل في عملية تخزين الرصاص, الرجاء المحاولة مرة اخرى او التأكد من أرقام الرصاص!");
+                } else if (x == ((rsTo - rsFrom) + 1)) {
+                    MBCommonMethods.getInfoMessage("عملية ناحجة", "تم صرف الرصاص للمركز ينجاح.");
+                } else {
+                    MBCommonMethods.getInfoMessage("عملية خاطئة", "هنالك رصاص لم يتم صرفه, الرجاء التأكد من الرصاص المصروف!");
+                }    
             }
 
         } else {
-            //int x = saveCenterRasas();
-                saveCenterRasas();
+            int x = saveCenterRasas();
+
+            if (x == 0) {
+                MBCommonMethods.getErrorMessage("عملية خاطئة", "فشل في عملية تخزين الرصاص, الرجاء المحاولة مرة اخرى او التأكد من أرقام الرصاص!");
+            } else if(x == ((rsTo - rsFrom) + 1)){
                 MBCommonMethods.getInfoMessage("عملية ناحجة", "تم صرف الرصاص للمركز ينجاح.");
-                return "";
-//            if (x == 0) {
-//                MBCommonMethods.getErrorMessage("عملية خاطئة", "فشل في عملية تخزين الرصاص, الرجاء المحاولة مرة اخرى او التأكد من أرقام الرصاص!");
-//                return "";
-//
-//            } else {
-//                MBCommonMethods.getInfoMessage("عملية ناحجة", "تم صرف الرصاص للمركز ينجاح.");
-//                return "";
-//            }
+            }else{
+                MBCommonMethods.getInfoMessage("عملية خاطئة", "هنالك رصاص لم يتم صرفه, الرجاء التأكد من الرصاص المصروف!");
+            }
         } 
         return "";
     }
@@ -127,7 +120,7 @@ public class MBRsMain implements Serializable{
             rsFound = 0;
             for(RsMain rs : rsList){
               for(int i = rsFrom; i <= rsTo; i++){
-                  if(Integer.valueOf(rs.getRsNo()).equals(i)){
+                  if(rs.getRsNo() == i){
                       rsFound++;
                   }
               }  
@@ -135,12 +128,8 @@ public class MBRsMain implements Serializable{
             
             if(rsFound == 0){
                 MBCommonMethods.getErrorMessage("عملية خاطئة", "الرصاص غير موجود في ملف المركز. الرجاء إستلام الرصاص من اللوازم أولا!");
-                return "";
-                
             }else if(rsFound > 0 && rsFound > ((rsTo - rsFrom) + 1)){
                 MBCommonMethods.getErrorMessage("عملية خاطئة", "هنالك رصاص غير موجود في ملف الرصاص, الرجاء إستلام الرصاص من اللوازم أولا!");
-                return "";
-     
             }else{
                 
                 rsList = new ArrayList<>();
@@ -152,57 +141,49 @@ public class MBRsMain implements Serializable{
                     
                     for (RsMain rs : rsList) {
                         for (int i = rsFrom; i <= rsTo; i++) {
-                            if (Integer.valueOf(rs.getRsNo()).equals(i)) {
+                            if (rs.getRsNo() == i) {
                                 rsFound++;
                             }
                         }
                     }
                     
                     if(rsFound == 0){
-                        
-                        
                         MBCommonMethods.getErrorMessage("عملية خاطئة", "الرصاص مصروف مسبقا ومسدد, الرجاء التأكد والمحاولة مرة اخرى!");
-                        return "";
-                        
                     }else if(rsFound > 0 && rsFound < ((rsTo - rsFrom) + 1)){
                         MBCommonMethods.getErrorMessage("عملية خاطئة", "هنالك رصاص مصروف مسبقا ومسدد, الرجاء التأكد والمحاولة مرة اخرى!");
-                        return "";
-                        
                     }else{
                         
                         int x = saveSubCenterRasas();
 
                         if (x == 0) {
                             MBCommonMethods.getErrorMessage("عملية خاطئة", "فشل في عملية تخزين الرصاص, الرجاء المحاولة مرة اخرى او التأكد من أرقام الرصاص!");
-                            return "";
-
-                        } else {
+                        } else if (x == ((rsTo - rsFrom) + 1)) {
                             MBCommonMethods.getInfoMessage("عملية ناحجة", "تم صرف الرصاص للمركز ينجاح.");
-                            return "";
+                        } else {
+                            MBCommonMethods.getInfoMessage("عملية خاطئة", "هنالك رصاص لم يتم صرفه, الرجاء التأكد من الرصاص المصروف!");
                         }
                     }
-
                 }else{
                    MBCommonMethods.getErrorMessage("عملية خاطئة", "هنالك رصاص مصروف مسبقا ومسدد, الرجاء التأكد والمحاولة مرة اخرى!");
-                   return ""; 
                 }
             }
-      
         } else {
             MBCommonMethods.getErrorMessage("عملية خاطئة", "لا يوجد رصاص متاح للصرف في المركز, يجب إستلام الرصاص من اللوازم أولا!");
-            return "";
         }
+        return "";
     }
     
     ////////////////////////////////////////////////////////////////////////////
     //////////////////// Query methods /////////////////////////////////////////
     
-    public void saveCenterRasas() throws SQLException{
+    public int saveCenterRasas() throws SQLException{
         System.out.println("com.rasas.mbeans.MBRsMain.saveCenterRasas()---------->");
+        
         rsCon = new RasasDAO();
         rasasList = new ArrayList<>();
         preparedStatement = null;
         result            = null;
+        int[] x = null;
         
         try {
             
@@ -223,7 +204,7 @@ public class MBRsMain implements Serializable{
             
             for(int i = rsFrom; i <= rsTo; i++){
                 
-                preparedStatement.setString(1, String.valueOf(i));
+                preparedStatement.setLong(1, i);
                 preparedStatement.setString(2, rs_year);
                 preparedStatement.setString(3, centerNo);
                 preparedStatement.setDate(4, (java.sql.Date) sqlDate);
@@ -233,8 +214,7 @@ public class MBRsMain implements Serializable{
                 
             }
       
-            int[] x = preparedStatement.executeBatch();
-            System.out.println("-----------------------------------------------------------> " + x.length);
+            x = preparedStatement.executeBatch();
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -247,14 +227,59 @@ public class MBRsMain implements Serializable{
 		con.close();
 		}
 	}
+        return x.length;
     }
     
     ////////////////////////////////////////////////////////////////////////////
     
-    public int saveSubCenterRasas(){
+    public int saveSubCenterRasas() throws SQLException{
         System.out.println("com.rasas.mbeans.MBRsMain.saveSubCenterRasas()---------->");
         
-        return 0;
+        rsCon = new RasasDAO();
+        rasasList = new ArrayList<>();
+        preparedStatement = null;
+        result = null;
+        int[] x = null;
+
+        try {
+
+            String sql = "update rs_main set rs_sub_center = ?, rs_sub_center_date = ?, rs_sub_center_user_id = ?"
+                    + " where rs_no = ? and rs_year = ? and rs_center = ?";
+
+            con = rsCon.getRsConnection();
+            preparedStatement = con.prepareStatement(sql);
+            
+            String rs_year = MBCommonMethods.getCurrentYear();
+            Date utilDate = new Date();
+            Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+            for (int i = rsFrom; i <= rsTo; i++) {
+
+                preparedStatement.setString(1, subCenterNo);
+                preparedStatement.setDate(2, (java.sql.Date) sqlDate);
+                preparedStatement.setString(3, "33476");
+                preparedStatement.setInt(4, i);
+                preparedStatement.setString(5, rs_year);
+                preparedStatement.setString(6, "220");
+
+                preparedStatement.addBatch();
+
+            }
+
+            x = preparedStatement.executeBatch();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+
+            if (con != null) {
+                con.close();
+            }
+        }
+        return x.length;
     }
     
     ////////////////////////////////////////////////////////////////////////////
@@ -282,7 +307,7 @@ public class MBRsMain implements Serializable{
                 
                 rasas = new RsMain();
                 
-                rasas.setRsNo(result.getString("RS_NO"));
+                rasas.setRsNo(result.getLong("RS_NO"));
                 rasas.setRsYear(result.getString("RS_YEAR"));
                 rasas.setRsCenter(result.getString("RS_CENTER"));
                 rasas.setRsCenterDate(result.getDate("RS_CENTER_DATE"));
@@ -335,7 +360,7 @@ public class MBRsMain implements Serializable{
                 
                 rasas = new RsMain();
                 
-                rasas.setRsNo(result.getString("RS_NO"));
+                rasas.setRsNo(result.getLong("RS_NO"));
                 rasas.setRsYear(result.getString("RS_YEAR"));
                 rasas.setRsCenter(result.getString("RS_CENTER"));
                 rasas.setRsCenterDate(result.getDate("RS_CENTER_DATE"));
@@ -390,7 +415,7 @@ public class MBRsMain implements Serializable{
                 
                 rasas = new RsMain();
                 
-                rasas.setRsNo(result.getString("RS_NO"));
+                rasas.setRsNo(result.getLong("RS_NO"));
                 rasas.setRsYear(result.getString("RS_YEAR"));
                 rasas.setRsCenter(result.getString("RS_CENTER"));
                 rasas.setRsCenterDate(result.getDate("RS_CENTER_DATE"));
@@ -445,7 +470,7 @@ public class MBRsMain implements Serializable{
                 
                 rasas = new RsMain();
                 
-                rasas.setRsNo(result.getString("RS_NO"));
+                rasas.setRsNo(result.getLong("RS_NO"));
                 rasas.setRsYear(result.getString("RS_YEAR"));
                 rasas.setRsCenter(result.getString("RS_CENTER"));
                 rasas.setRsCenterDate(result.getDate("RS_CENTER_DATE"));
