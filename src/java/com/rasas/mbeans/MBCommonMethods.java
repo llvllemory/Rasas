@@ -1,6 +1,7 @@
 package com.rasas.mbeans;
 
 import com.rasas.entities.Users;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,10 +15,8 @@ import org.primefaces.context.RequestContext;
 
 @ManagedBean
 @RequestScoped
-public class MBCommonMethods {
-   
-   private static Users loggedUser;
-   
+public class MBCommonMethods implements Serializable{
+     
    public MBCommonMethods(){
        
    }
@@ -63,13 +62,14 @@ public class MBCommonMethods {
    } 
    
    /////////////////////////////////////////////////////////////////////////////
+   
+    public static void userLogin(Users user){
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);
 
-    public static Users getLoggedUser() {
-        return loggedUser;
     }
-
-    public static void setLoggedUser(Users loggedUser) {
-        MBCommonMethods.loggedUser = loggedUser;
+    
+    public static Users getLoggedUser(){
+        return (Users) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
     }
     
     public static String userLogout(){

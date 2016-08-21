@@ -59,10 +59,14 @@
                    <p:menuitem value="خروج" action="#{mBCommonMethods.userLogout()}"/>
                 </p:submenu>
             </p:menubar>
+            
+            <center>
+                <p:outputLabel id="lblLoggedAndDate" styleClass="lblLoggedAndDate" 
+                               value="#{mBCommonMethods.getLoggedUser().userName} #{mBCommonMethods.getCurrentDate()}"/>
+            </center>
+            
         </h:form> 
-        <center>
-        <p:outputLabel id="lblLoggedAndDate" styleClass="lblLoggedAndDate" value="#{mBCommonMethods.getLoggedUser().userName} #{mBCommonMethods.getCurrentDate()}"/>
-        </center>
+        
     </h:body>
 </ui:composition>
 
