@@ -16,7 +16,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @RequestScoped
 public class MBCommonMethods implements Serializable{
-     
+   
+   // 
    public MBCommonMethods(){
        
    }
