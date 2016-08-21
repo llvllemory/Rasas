@@ -7,12 +7,13 @@ import java.util.Calendar;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 
 @ManagedBean
-
+@RequestScoped
 public class MBCommonMethods {
    
    private static Users loggedUser;
@@ -69,6 +70,11 @@ public class MBCommonMethods {
 
     public static void setLoggedUser(Users loggedUser) {
         MBCommonMethods.loggedUser = loggedUser;
+    }
+    
+    public static String userLogout(){
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "login_page";
     }
    
 }

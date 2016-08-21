@@ -19,7 +19,6 @@ public class MBLogin implements Serializable{
     
     private MBUsers mBUsers; 
     private List<Users> usersList;
-    private Users loggedUser;
     
     public MBLogin(){
 
@@ -84,15 +83,6 @@ public class MBLogin implements Serializable{
 
     public void setPassword(String password) {
         this.password = password;
-    } 
-
-    public Users getLoggedUser() {
-        return loggedUser;
-    }
-
-    public void setLoggedUser(Users loggedUser) {
-        this.loggedUser = loggedUser;
-    }
-    
+    }  
     
 }

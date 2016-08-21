@@ -56,12 +56,13 @@
                     </p:submenu>
                     
                    <p:menuitem value="الأمن والحماية"/>
-                   <p:menuitem value="خروج"/>
+                   <p:menuitem value="خروج" action="#{mBCommonMethods.userLogout()}"/>
                 </p:submenu>
             </p:menubar>
         </h:form> 
-        <br/>
+        <center>
         <p:outputLabel id="lblLoggedAndDate" styleClass="lblLoggedAndDate" value="#{mBCommonMethods.getLoggedUser().userName} #{mBCommonMethods.getCurrentDate()}"/>
+        </center>
     </h:body>
 </ui:composition>
 
