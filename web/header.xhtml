@@ -37,11 +37,8 @@
      </h:head>
     
     <h:body>
-        <h:form>
-            <p:growl id="growl" showDetail="true"/>
-            
+        <h:form>  
             <p:menubar>
-                
                 <p:submenu label="الإستفسارات">
                     <p:menuitem value="الإستفسار الشامل"/>
                 </p:submenu>
@@ -63,6 +60,8 @@
                 </p:submenu>
             </p:menubar>
         </h:form> 
+        <br/>
+        <p:outputLabel id="lblLoggedAndDate" styleClass="lblLoggedAndDate" value="#{mBCommonMethods.getLoggedUser().userName} #{mBCommonMethods.getCurrentDate()}"/>
     </h:body>
 </ui:composition>
 

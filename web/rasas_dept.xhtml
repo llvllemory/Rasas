@@ -8,15 +8,10 @@
     
     <h:head>
         <title>إستلام رصاص اللوازم</title>
-        
-        <style>
-            .ui-growl {
-                top: 2% !important;
-                left: 1%;
-                width: 450px;
-                
-            }
-        </style>
+     
+        <link rel="stylesheet" 
+              type="text/css"
+              href="resources/css/rasas.css"/>
         
     </h:head>
     
@@ -27,24 +22,22 @@
         <ui:insert name="header">
 		<ui:include src="header.xhtml" />
 	</ui:insert>
-                
-        <h:form>
+
+        <center>
+            <p:outputLabel id = "lblTitle" value="إستلام رصاص اللوازم"/>
+        </center>
+        
+        <h:form styleClass="frmMain" >
             <center>
-                <h:panelGrid columns="4" cellpadding="10" style="direction: rtl;margin-top: 10%;">
-                    
-                    <f:facet name="header">
-                        <center>
-                            <p:outputLabel value="صرف رصاص من اللوازم لمركز"/>
-                        </center>
-                    </f:facet>
-                    
+                <h:panelGrid styleClass="pnl" columns="4" cellpadding="10">
+                                       
                     <p:outputLabel id="lblCenterNo" value="المركز : " />
-                    <h:selectOneMenu value="#{mBRsMain.centerNo}" style="width: 170px; height: 25px;">
+                    <h:selectOneMenu styleClass = "slctMenu" value="#{mBRsMain.centerNo}">
                         <f:selectItem itemLabel="جمرك العقبة" itemValue="220"/>
                     </h:selectOneMenu>
                     
-                    <p:outputLabel id="lblCurrentDate" value="التاريخ : "/>
-                    <p:outputLabel id="lblCurrentDate_" value="#{mBCommonMethods.getCurrentDate()}"/>
+                    <p:outputLabel id="lblCurrentYear" value=" السنة : "/>
+                    <p:outputLabel id="lblCurrentYear_" value="#{mBCommonMethods.getCurrentYear()}"/>
                     
                     <p:outputLabel id="lblRsFrom" value="من رصاص : "/>
                     <p:inputText id="txtRsFrom" value="#{mBRsMain.rsFrom}" style="text-align: center;width: 170px;" maxlength="10" required="true"/>

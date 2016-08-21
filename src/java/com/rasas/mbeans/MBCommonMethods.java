@@ -1,5 +1,6 @@
 package com.rasas.mbeans;
 
+import com.rasas.entities.Users;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -11,9 +12,11 @@ import org.primefaces.context.RequestContext;
 
 
 @ManagedBean
-@RequestScoped
+
 public class MBCommonMethods {
-    
+   
+   private static Users loggedUser;
+   
    public MBCommonMethods(){
        
    }
@@ -56,5 +59,16 @@ public class MBCommonMethods {
         DateFormat dateFormat = new SimpleDateFormat("yyyy");
         Calendar cal = Calendar.getInstance();
         return dateFormat.format(cal.getTime());
-   }   
+   } 
+   
+   /////////////////////////////////////////////////////////////////////////////
+
+    public static Users getLoggedUser() {
+        return loggedUser;
+    }
+
+    public static void setLoggedUser(Users loggedUser) {
+        MBCommonMethods.loggedUser = loggedUser;
+    }
+   
 }

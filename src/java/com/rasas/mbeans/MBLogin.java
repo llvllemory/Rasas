@@ -1,12 +1,14 @@
 package com.rasas.mbeans;
 
 import com.rasas.entities.Users;
+import com.sun.faces.context.SessionMap;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @RequestScoped
@@ -17,6 +19,7 @@ public class MBLogin implements Serializable{
     
     private MBUsers mBUsers; 
     private List<Users> usersList;
+    private Users loggedUser;
     
     public MBLogin(){
 
@@ -45,6 +48,8 @@ public class MBLogin implements Serializable{
             mBUsers.updateUserLastLogin(userId);
                     
             MBCommonMethods.getInfoMessage("", "أهلا بك " + usersList.get(0).getUserName());
+            MBCommonMethods.setLoggedUser((Users) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("0"));
+            
             return "main_page";
             
         }else{
@@ -80,4 +85,14 @@ public class MBLogin implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     } 
+
+    public Users getLoggedUser() {
+        return loggedUser;
+    }
+
+    public void setLoggedUser(Users loggedUser) {
+        this.loggedUser = loggedUser;
+    }
+    
+    
 }

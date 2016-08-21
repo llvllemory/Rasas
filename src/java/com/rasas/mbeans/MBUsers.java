@@ -139,8 +139,8 @@ public class MBUsers implements Serializable{
     public void updateUserLastLogin(String userId) {
         System.out.println("com.rasas.mbeans.MBUsers.updateUserLastLogin()---------->");
         
-        em.getTransaction().begin();
         user = new Users();
+        em.getTransaction().begin();
         user = em.find(Users.class, userId);
         user.setLastLogin(new java.util.Date());
         em.getTransaction().commit();
